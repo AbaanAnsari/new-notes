@@ -13,6 +13,26 @@ export async function getAllUsers(req, res) {
     }
 }
 
+//generate Access and Refresh Tokens
+const generateAccessAndRefreshTokens = async (userId) => {
+    try {
+        const user = await User.findById(userId);
+        const accessToken = user.generateAccessToken()
+        const refreshToken = user.generateRefreshToken()
+
+        user.refreshToken = refreshToken;
+        await user.save({ validateBeforeSave: false });
+
+        return { accessToken, refreshToken };
+
+    } catch (error) {
+        return res.status(500).json({
+            error: true,
+            message: "Error generating tokens"
+        })
+    }
+}
+
 
 //Create Account
 export async function createAccount(req, res) {
@@ -34,8 +54,6 @@ export async function createAccount(req, res) {
             message: "User already exist"
         })
     }
-
-    console.log(isUser)
 
     const user = await User.create({
         fullName,
@@ -159,7 +177,7 @@ export async function refreshAccessToken(req, res) {
             secure: true
         }
 
-        const { accessToken, newRefreshToken } = await generateAccessAndRefereshTokens(userInfo._id)
+        const { accessToken, newRefreshToken } = await generateAccessAndRefreshTokens(userInfo._id)
 
         return res
             .status(200)
