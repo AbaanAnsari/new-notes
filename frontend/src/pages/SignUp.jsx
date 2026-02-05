@@ -16,12 +16,7 @@ const Signup = () => {
 
     const handleSignUp = async (e) => {
         e.preventDefault();
-
-        const userFound = await axiosInstance.get("/users")
-        if (userFound.email === email) {
-            toast.error("User with this email already exists");
-        }
-
+        
         if (!fullName) {
             setError("Enter your name");
             return;
@@ -36,6 +31,7 @@ const Signup = () => {
             setError("Invalid password");
             return;
         }
+
 
         setLoading(true);
 
@@ -55,7 +51,11 @@ const Signup = () => {
                     "Too many requests. Please try again later.",
                     { duration: 4000, icon: "⏳" }
                 );
-            } else {
+            } else if (error.response.status === 409) {
+                toast.error("User with this email already exists")
+                navigate("/login")
+            }
+            else {
                 toast.error("Failed to create account. Please try again.");
             }
         } finally {

@@ -22,17 +22,6 @@ const generateAccessAndRefreshTokens = async (userId) => {
     }
 }
 
-//Get Users
-export async function getAllUsers(req, res) {
-    try {
-        const users = await User.find().sort({ createdAt: -1 });  //sort({ createdAt: -1 }) to get latest users first
-        res.status(200).json(users);
-    } catch (error) {
-        console.error("Error in getAllUsers Controller", error);
-        res.status(500).json({ message: "Internal server error" });
-    }
-}
-
 //Create Account
 export async function createAccount(req, res) {
     try {
