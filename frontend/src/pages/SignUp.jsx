@@ -53,7 +53,6 @@ const Signup = () => {
                 );
             } else if (error.response.status === 409) {
                 toast.error("User with this email already exists")
-                navigate("/login")
             }
             else {
                 toast.error("Failed to create account. Please try again.");
