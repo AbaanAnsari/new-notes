@@ -13,8 +13,7 @@ const NoteCard = ({ note, setNotes }) => {
   };
 
   return (
-    <Link
-      to={`/note/${note._id}`}
+    <div
       className="card bg-base-100 drop-shadow-xl transition-transform duration-300
                  hover:scale-105 border-t-4 border-[#5e81ac]"
     >
@@ -31,12 +30,16 @@ const NoteCard = ({ note, setNotes }) => {
           </span>
 
           <div className="flex items-center gap-1">
-            <button
-              className="btn btn-ghost btn-xs"
-              onClick={(e) => e.stopPropagation()}
+            <Link
+              to={`/note/${note._id}`}
             >
-              <PenSquareIcon className="size-4" />
-            </button>
+              <button
+                className="btn btn-ghost btn-xs"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <PenSquareIcon className="size-4" />
+              </button>
+            </Link>
 
             <button
               className="btn btn-ghost btn-xs text-error"
@@ -47,7 +50,7 @@ const NoteCard = ({ note, setNotes }) => {
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

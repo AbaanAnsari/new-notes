@@ -6,13 +6,13 @@ import { useState } from "react";
 const LogoutConfirm = () => {
     const navigate = useNavigate();
     const { id } = useParams();
-    const [loading,setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const handleConfirmLogout = async () => {
         try {
             setLoading(true)
             await axiosInstance.post("/users/logout");
-            toast.success("LogOut Successfully");
+            toast.success("Logout Successfull");
             navigate("/login", { replace: true });
         } catch (error) {
             toast.error("Failed to logout");
@@ -36,7 +36,7 @@ const LogoutConfirm = () => {
                         Cancel
                     </button>
 
-                    <button className="btn btn-error" onClick={handleConfirmLogout}>
+                    <button className="btn btn-error w-[80px]" onClick={handleConfirmLogout}>
                         {loading ? (<span className="loading loading-spinner"></span>) : ("Logout")}
                     </button>
                 </div>

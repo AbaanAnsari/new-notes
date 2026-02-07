@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        console.log("fetchuser triggerd")
+        // console.log("fetchuser triggerd")
         fetchUser(); // runs once when app starts
     }, []);
 
