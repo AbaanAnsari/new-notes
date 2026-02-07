@@ -1,12 +1,11 @@
 // Setting a MongoDB Database for storing notes
 import mongoose, { Schema } from "mongoose";
-import User from "./User.js";
-
 
 const noteSchema = new mongoose.Schema({
     user: {
         type: Schema.Types.ObjectId,
-        ref: User
+        ref: "User",
+        required: true
     },
     title: {
         type: String,

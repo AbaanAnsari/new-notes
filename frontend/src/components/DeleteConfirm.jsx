@@ -1,19 +1,24 @@
 import { useNavigate, useParams } from "react-router";
 import api from "../lib/axios";
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 const DeleteConfirm = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false)
   const { id } = useParams();
 
   const handleConfirmDelete = async () => {
     try {
+      setLoading(true)
       await api.delete(`/notes/${id}`);
       toast.success("Note deleted");
       navigate("/", { replace: true });
     } catch (error) {
       toast.error("Failed to delete note");
       navigate(-1);
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -33,7 +38,7 @@ const DeleteConfirm = () => {
           </button>
 
           <button className="btn btn-error" onClick={handleConfirmDelete}>
-            Delete
+            {loading ? (<span className="loading loading-spinner"></span>) : ("Delete")}
           </button>
         </div>
       </div>
