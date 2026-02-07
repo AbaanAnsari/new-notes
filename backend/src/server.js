@@ -41,7 +41,7 @@ app.use(cookieParser())
 app.use("/api/v1/users", usersRoute);
 app.use("/api/v1/notes", notesRoute);
 
-if (!process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV !== "development") {
     app.use(express.static(path.join(__dirname, "../frontend/dist")))
 
     app.get("*", (req, res) => {
